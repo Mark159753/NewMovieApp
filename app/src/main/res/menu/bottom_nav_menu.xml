@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/homeFragment"
+        android:title="@string/home_nav"
+        android:icon="@drawable/ic_home_24"/>
+    <item
+        android:id="@+id/trendsFragment"
+        android:title="@string/trends_nav"
+        android:icon="@drawable/ic_trending_up_24"/>
+    <item
+        android:id="@+id/comingSoonFragment"
+        android:title="@string/coming_nav"
+        android:icon="@drawable/ic_coming"/>
+    <item
+        android:id="@+id/settingsFragment"
+        android:title="@string/settings_nav"
+        android:icon="@drawable/ic_settings_24"/>
+</menu>

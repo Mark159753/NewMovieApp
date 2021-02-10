@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingVertical="4dp">
+
+        <TextView
+            android:id="@+id/ordinary_item_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/RegularHeaderText"
+            android:layout_marginHorizontal="@dimen/horizontal_margin"
+            tools:text="New Movies"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/ordinary_item_list"
+            android:layout_marginTop="8dp"
+            android:clipChildren="false"
+            android:layout_width="match_parent"
+            android:layout_height="184dp"
+            tools:listitem="@layout/movie_item"
+            android:orientation="horizontal"/>
+    </LinearLayout>
+</layout>

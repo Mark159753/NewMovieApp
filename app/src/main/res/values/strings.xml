@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">MovieApp</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="home_nav">Home</string>
+    <string name="trends_nav">Trends</string>
+    <string name="coming_nav">Coming</string>
+    <string name="settings_nav">Settings</string>
+    <string name="search_hint">Search</string>
+    <string name="now_streaming_movies_item">Now Streaming Movies</string>
+    <string name="popular_tv_show_item">Popular Tv Shows</string>
+    <string name="popular_movies_item">Popular Movies</string>
+</resources>
