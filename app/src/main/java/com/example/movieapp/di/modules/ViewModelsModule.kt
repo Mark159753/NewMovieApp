@@ -2,6 +2,7 @@ package com.example.movieapp.di.modules
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.example.movieapp.di.AssistedSavedStateViewModelFactory
 import com.example.movieapp.di.ViewModelFactoryDI
 import com.example.movieapp.di.ViewModelKey
 import com.example.movieapp.ui.comingSoon.ComingSoonViewModel
@@ -30,5 +31,5 @@ abstract class ViewModelsModule {
     @Binds
     @IntoMap
     @ViewModelKey(TrendsViewModel::class)
-    abstract fun bindTrendsViewModel(model: TrendsViewModel): ViewModel
+    abstract fun bindTrendsViewModel(f: TrendsViewModel.Factory): AssistedSavedStateViewModelFactory<out ViewModel>
 }

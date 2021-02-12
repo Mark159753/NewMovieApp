@@ -10,4 +10,8 @@
     <color name="light_gray">#F8F8F8</color>
     <color name="middle_gray">#C5C2C2</color>
     <color name="dark_gray">#636363</color>
+
+    <color name="gray_aaa">#AAAAAA</color>
+
+    <color name="yellow">#FCE517</color>
 </resources>

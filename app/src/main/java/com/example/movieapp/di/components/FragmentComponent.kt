@@ -3,6 +3,7 @@ package com.example.movieapp.di.components
 import com.example.movieapp.di.modules.RepositoryModule
 import com.example.movieapp.di.modules.ViewModelsModule
 import com.example.movieapp.ui.home.HomeFragment
+import com.example.movieapp.ui.trends.TrendsFragment
 import dagger.Subcomponent
 import javax.inject.Scope
 
@@ -16,6 +17,7 @@ import javax.inject.Scope
 interface FragmentComponent {
 
     fun inject(fragment:HomeFragment)
+    fun inject(fragment:TrendsFragment)
 
     @Subcomponent.Factory
     interface Factory{

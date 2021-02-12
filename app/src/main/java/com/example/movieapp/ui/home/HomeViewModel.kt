@@ -6,6 +6,8 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
 import com.example.movieapp.domain.repository.HomeRepository
 import com.example.movieapp.until.ConnectionLiveData
+import com.example.movieapp.until.MediaTypes
+import com.example.movieapp.until.TimeWindow
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
@@ -18,7 +20,7 @@ class HomeViewModel @Inject constructor(
     val connectionLiveData = ConnectionLiveData(context)
 
     val trend = repository
-            .getTrends("all", "day", "en-us")
+            .getTrends(MediaTypes.All.type, TimeWindow.Day.timeWindow, "en-us")
             .flowOn(Dispatchers.IO)
             .cachedIn(viewModelScope)
 

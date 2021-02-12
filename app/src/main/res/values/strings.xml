@@ -10,4 +10,12 @@
     <string name="now_streaming_movies_item">Now Streaming Movies</string>
     <string name="popular_tv_show_item">Popular Tv Shows</string>
     <string name="popular_movies_item">Popular Movies</string>
+
+    <string name="lorem">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</string>
+    <string name="all">All</string>
+    <string name="movie">Movie</string>
+    <string name="tv">Tv</string>
+    <string name="person">Person</string>
+    <string name="today">Today</string>
+    <string name="this_week">This Week</string>
 </resources>
