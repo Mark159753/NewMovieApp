@@ -2,4 +2,5 @@
 <resources>
     <dimen name="horizontal_margin">16dp</dimen>
     <dimen name="item_horizontal_margin">8dp</dimen>
+    <dimen name="item_text_start_margin">8dp</dimen>
 </resources>

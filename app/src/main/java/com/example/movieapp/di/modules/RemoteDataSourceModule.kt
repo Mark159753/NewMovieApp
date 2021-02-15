@@ -1,10 +1,7 @@
 package com.example.movieapp.di.modules
 
 import com.example.movieapp.data.remote.datasource.RemoteDataSource
-import com.example.movieapp.data.remote.datasource.abstraction.MoviePopularSource
-import com.example.movieapp.data.remote.datasource.abstraction.MovieTrendsSource
-import com.example.movieapp.data.remote.datasource.abstraction.NowStreamingMoviesSource
-import com.example.movieapp.data.remote.datasource.abstraction.PopularTvShowSource
+import com.example.movieapp.data.remote.datasource.abstraction.*
 import dagger.Binds
 import dagger.Module
 
@@ -22,4 +19,16 @@ abstract class RemoteDataSourceModule {
 
     @Binds
     abstract fun providePopularTvShowSource(source: RemoteDataSource): PopularTvShowSource
+
+    @Binds
+    abstract fun provideUpcomingMoviesSource(source: RemoteDataSource): UpcomingMoviesSource
+
+    @Binds
+    abstract fun provideAiringTodayTvShowSource(source: RemoteDataSource): AiringTodayTvShowSource
+
+    @Binds
+    abstract fun bindMovieGenreSource(source: RemoteDataSource): MovieGenreSource
+
+    @Binds
+    abstract fun bindTvGenreSource(source: RemoteDataSource): TvGenreSource
 }

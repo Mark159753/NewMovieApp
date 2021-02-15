@@ -1,10 +1,7 @@
 package com.example.movieapp.data.local.dao
 
 import androidx.room.*
-import com.example.movieapp.data.local.entitys.remoteKeys.NowStreamingRemoteKeys
-import com.example.movieapp.data.local.entitys.remoteKeys.PopularMoviesRemoteKeys
-import com.example.movieapp.data.local.entitys.remoteKeys.PopularTvShowRemoteKeys
-import com.example.movieapp.data.local.entitys.remoteKeys.TrendRemoteKeys
+import com.example.movieapp.data.local.entitys.remoteKeys.*
 
 @Dao
 interface TrendRemoteKeysDao{
@@ -83,5 +80,41 @@ interface PopularTvSHowRemoteKeysDao{
     suspend fun getItemById(id:Int): PopularTvShowRemoteKeys?
 
     @Query("DELETE FROM popular_tv_show_remote_keys")
+    suspend fun deleteAll()
+}
+
+@Dao
+interface AiringTodayTvRemoteKeysDao{
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertItem(item: AiringTodayTvRemoteKeys)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertAllItems(items:List<AiringTodayTvRemoteKeys>)
+
+    @Query("SELECT * FROM airing_today_tv_remote_key")
+    suspend fun getAllItems():List<AiringTodayTvRemoteKeys>
+
+    @Query("SELECT * FROM airing_today_tv_remote_key WHERE id = :id")
+    suspend fun getItemById(id:Int): AiringTodayTvRemoteKeys?
+
+    @Query("DELETE FROM airing_today_tv_remote_key")
+    suspend fun deleteAll()
+}
+
+@Dao
+interface UpcomingMoviesRemoteKeysDao{
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertItem(item: UpcomingMoviesRemoteKeys)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertAllItems(items:List<UpcomingMoviesRemoteKeys>)
+
+    @Query("SELECT * FROM upcoming_movies_remote_keys_tab")
+    suspend fun getAllItems():List<UpcomingMoviesRemoteKeys>
+
+    @Query("SELECT * FROM upcoming_movies_remote_keys_tab WHERE id = :id")
+    suspend fun getItemById(id:Int): UpcomingMoviesRemoteKeys?
+
+    @Query("DELETE FROM upcoming_movies_remote_keys_tab")
     suspend fun deleteAll()
 }

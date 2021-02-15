@@ -49,4 +49,19 @@ object DatabaseModule {
     fun providePopularMovieDao(db: MovieDb):PopularMovieDao{
         return db.getPopularMovieDao()
     }
+
+    @Provides
+    fun provideAiringTodayTvDao(db: MovieDb):AiringTodayTvDao{
+        return db.getAiringTodayTvDao()
+    }
+
+    @Provides
+    fun provideUpcomingMovieDao(db: MovieDb):UpcomingMoviesDao{
+        return db.getUpcomingMoviesDao()
+    }
+
+    @Provides
+    fun provideGenreDao(db: MovieDb):GenreDao{
+        return db.getGenreDao()
+    }
 }

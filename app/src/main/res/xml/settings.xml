@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <PreferenceCategory
+        android:title="System">
+    <ListPreference
+        android:key="theme_light_dark_mode"
+        android:entries="@array/dark_light_entries"
+        android:entryValues="@array/dark_light_values"
+        android:defaultValue="0"
+        android:summary="@string/ui_settings_description"
+        android:title="UI Mode"/>
+    <ListPreference
+        android:key="language"
+        android:title="Language"
+        android:entries="@array/lang_entries"
+        android:entryValues="@array/lang_value"
+        android:defaultValue="0"
+        android:summary="Change UI language to one of the list"/>
+    </PreferenceCategory>
+</PreferenceScreen>

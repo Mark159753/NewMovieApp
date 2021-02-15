@@ -1,5 +1,6 @@
 package com.example.movieapp.data.remote
 
+import com.example.movieapp.data.model.genre.GenreResponse
 import com.example.movieapp.data.model.moviesResponse.MoviesResponse
 import com.example.movieapp.data.model.trending.TrendsResponse
 import com.example.movieapp.data.model.tvShowResponse.TvShowResponse
@@ -35,4 +36,26 @@ interface MovieRemoteService {
             @Query("language") language:String = "en-US", // uk-UK Українська
             @Query("page") page:Int = 1
     ):Response<MoviesResponse>
+
+    @GET("movie/upcoming")
+    suspend fun getUpcomingMovies(
+        @Query("language") language:String = "en-US", // uk-UK Українська
+        @Query("page") page:Int = 1
+    ):Response<MoviesResponse>
+
+    @GET("tv/airing_today")
+    suspend fun getAiringTodayTvShow(
+        @Query("language") language:String = "en-US", // uk-UK Українська
+        @Query("page") page:Int = 1
+    ):Response<TvShowResponse>
+
+    @GET("genre/movie/list")
+    suspend fun getGenreMovieList(
+        @Query("language") language:String = "en-US" // uk-UK Українська
+    ):Response<GenreResponse>
+
+    @GET("genre/tv/list")
+    suspend fun getGenreTvList(
+            @Query("language") language:String = "en-US" // uk-UK Українська
+    ):Response<GenreResponse>
 }
