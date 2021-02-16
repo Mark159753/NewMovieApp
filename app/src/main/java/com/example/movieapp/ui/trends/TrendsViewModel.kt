@@ -1,5 +1,6 @@
 package com.example.movieapp.ui.trends
 
+import android.content.Context
 import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
@@ -12,6 +13,7 @@ import com.example.movieapp.domain.repository.TrendRepository
 import com.example.movieapp.ui.trends.state.TrendAction
 import com.example.movieapp.ui.trends.state.TrendQueryParameters
 import com.example.movieapp.ui.trends.state.TrendUiState
+import com.example.movieapp.until.LocaleHelper
 import com.example.movieapp.until.TimeWindow
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
@@ -23,6 +25,7 @@ import kotlinx.coroutines.launch
 
 class TrendsViewModel @AssistedInject constructor(
         private val repository: TrendRepository,
+        private val context: Context,
         @Assisted private val savedStateHandle: SavedStateHandle
 ): ViewModel() {
 
@@ -44,10 +47,10 @@ class TrendsViewModel @AssistedInject constructor(
         restoreState?.let {
             viewModelScope.launch { _states.emit(TrendUiState(null, it)) }
             if (it.trendTimeWindow == TimeWindow.Day)
-                setAction(TrendAction.TrendTimeWindow(TimeWindow.Day, "en-us"))
+                setAction(TrendAction.TrendTimeWindow(TimeWindow.Day, LocaleHelper.getLanguage(context)))
             else
-                setAction(TrendAction.TrendTimeWindow(TimeWindow.Week, "en-us"))
-        } ?: setAction(TrendAction.TrendTimeWindow(TimeWindow.Day, "en-us"))
+                setAction(TrendAction.TrendTimeWindow(TimeWindow.Week, LocaleHelper.getLanguage(context)))
+        } ?: setAction(TrendAction.TrendTimeWindow(TimeWindow.Day, LocaleHelper.getLanguage(context)))
     }
 
     fun setAction(action: TrendAction){

@@ -9,13 +9,13 @@
         android:entryValues="@array/dark_light_values"
         android:defaultValue="0"
         android:summary="@string/ui_settings_description"
-        android:title="UI Mode"/>
+        android:title="@string/ui_mode"/>
     <ListPreference
         android:key="language"
-        android:title="Language"
+        android:title="@string/leng_setting_title"
         android:entries="@array/lang_entries"
         android:entryValues="@array/lang_value"
-        android:defaultValue="0"
-        android:summary="Change UI language to one of the list"/>
+        app:defaultValue="0"
+        android:summary="@string/leng_setting_des"/>
     </PreferenceCategory>
 </PreferenceScreen>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="home_nav">Дома</string>
+    <string name="trends_nav">Тренды</string>
+    <string name="coming_nav">Скоро</string>
+    <string name="settings_nav">Надстройки</string>
+    <string name="search_hint">Поиск</string>
+    <string name="now_streaming_movies_item">Сейчас смотрят</string>
+    <string name="popular_tv_show_item">Популярные сериалы</string>
+    <string name="popular_movies_item">Популярное кино</string>
+    <string name="all">Всё</string>
+    <string name="movie">Кино</string>
+    <string name="tv">ТВ</string>
+    <string name="person">Люди</string>
+    <string name="today">Сегодня</string>
+    <string name="this_week">Этой недели</string>
+    <string name="movie_tab">Кино</string>
+    <string name="tv_show_tab">Сериалы</string>
+    <string name="ui_settings_description">Вибери темную или светлую тему или за умолчанием системы</string>
+    <string name="leng_setting_des">Измените язык интерфейса на одни из списка</string>
+    <string name="leng_setting_title">Языки</string>
+    <string name="ui_mode">UI Режим</string>
+</resources>

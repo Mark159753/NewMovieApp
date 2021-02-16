@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
 import com.example.movieapp.domain.repository.HomeRepository
 import com.example.movieapp.until.ConnectionLiveData
+import com.example.movieapp.until.LocaleHelper
 import com.example.movieapp.until.MediaTypes
 import com.example.movieapp.until.TimeWindow
 import kotlinx.coroutines.Dispatchers
@@ -20,22 +21,22 @@ class HomeViewModel @Inject constructor(
     val connectionLiveData = ConnectionLiveData(context)
 
     val trend = repository
-            .getTrends(MediaTypes.All.type, TimeWindow.Day.timeWindow, "en-us")
+            .getTrends(MediaTypes.All.type, TimeWindow.Day.timeWindow, LocaleHelper.getLanguage(context))
             .flowOn(Dispatchers.IO)
             .cachedIn(viewModelScope)
 
     val nowStreamingMovies = repository
-            .getNowStreamingMovies("en-us")
+            .getNowStreamingMovies(LocaleHelper.getLanguage(context))
             .flowOn(Dispatchers.IO)
             .cachedIn(viewModelScope)
 
     val popularTvShow = repository
-            .getPopularTvShows("en-us")
+            .getPopularTvShows(LocaleHelper.getLanguage(context))
             .flowOn(Dispatchers.IO)
             .cachedIn(viewModelScope)
 
     val popularMovies = repository
-            .getPopularMovies("en-us")
+            .getPopularMovies(LocaleHelper.getLanguage(context))
             .flowOn(Dispatchers.IO)
             .cachedIn(viewModelScope)
 }

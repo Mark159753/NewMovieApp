@@ -19,6 +19,7 @@ import com.example.movieapp.domain.model.TrendsData
 import com.example.movieapp.ui.trends.adapter.TrendListAdapter
 import com.example.movieapp.ui.trends.state.TrendAction
 import com.example.movieapp.ui.trends.state.TrendUiState
+import com.example.movieapp.until.LocaleHelper
 import com.example.movieapp.until.MarginItemDecorator
 import com.example.movieapp.until.MediaTypes
 import com.example.movieapp.until.TimeWindow
@@ -104,10 +105,10 @@ class TrendsFragment : Fragment() {
                 tab?.let {
                     when (it.position) {
                         0 -> {
-                            viewModel.setAction(TrendAction.TrendTimeWindow(TimeWindow.Day, "en-us*"))
+                            viewModel.setAction(TrendAction.TrendTimeWindow(TimeWindow.Day, LocaleHelper.getLanguage(requireContext())))
                         }
                         1 -> {
-                            viewModel.setAction(TrendAction.TrendTimeWindow(TimeWindow.Week, "en-us*"))
+                            viewModel.setAction(TrendAction.TrendTimeWindow(TimeWindow.Week, LocaleHelper.getLanguage(requireContext())))
                         }
                         -1 -> {
                             Log.e("TabInvalid", "Invalid Position")
@@ -136,16 +137,16 @@ class TrendsFragment : Fragment() {
         popupMenu.setOnMenuItemClickListener {
             when(it.itemId){
                 R.id.trend_type_all -> {
-                    viewModel.setAction(TrendAction.TrendContentType(MediaTypes.All, "en-us*"))
+                    viewModel.setAction(TrendAction.TrendContentType(MediaTypes.All, LocaleHelper.getLanguage(requireContext())))
                 }
                 R.id.trend_type_movie -> {
-                    viewModel.setAction(TrendAction.TrendContentType(MediaTypes.Movie, "en-us*"))
+                    viewModel.setAction(TrendAction.TrendContentType(MediaTypes.Movie, LocaleHelper.getLanguage(requireContext())))
                 }
                 R.id.trend_type_tv_show -> {
-                    viewModel.setAction(TrendAction.TrendContentType(MediaTypes.Tv, "en-us*"))
+                    viewModel.setAction(TrendAction.TrendContentType(MediaTypes.Tv, LocaleHelper.getLanguage(requireContext())))
                 }
                 R.id.trend_type_person -> {
-                    viewModel.setAction(TrendAction.TrendContentType(MediaTypes.Person, "en-us*"))
+                    viewModel.setAction(TrendAction.TrendContentType(MediaTypes.Person, LocaleHelper.getLanguage(requireContext())))
                 }
             }
             false

@@ -1,7 +1,7 @@
 <resources>
-    <string name="app_name">MovieApp</string>
+    <string name="app_name" translatable="false">MovieApp</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
     <string name="home_nav">Home</string>
     <string name="trends_nav">Trends</string>
     <string name="coming_nav">Coming</string>
@@ -11,7 +11,7 @@
     <string name="popular_tv_show_item">Popular Tv Shows</string>
     <string name="popular_movies_item">Popular Movies</string>
 
-    <string name="lorem">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</string>
+    <string name="lorem" translatable="false">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</string>
     <string name="all">All</string>
     <string name="movie">Movie</string>
     <string name="tv">Tv</string>
@@ -21,4 +21,7 @@
     <string name="ui_settings_description">Choose Dark or Light UI theme or use System default.</string>
     <string name="movie_tab">Movies</string>
     <string name="tv_show_tab">Tv Shows</string>
+    <string name="leng_setting_des">Change UI language to one of the list</string>
+    <string name="leng_setting_title">Language</string>
+    <string name="ui_mode">UI Mode</string>
 </resources>
