@@ -1,7 +1,11 @@
 package com.example.movieapp.data.remote
 
+import com.example.movieapp.data.model.cast.CastResponse
 import com.example.movieapp.data.model.genre.GenreResponse
+import com.example.movieapp.data.model.movieDetails.MovieDetailsResponse
+import com.example.movieapp.data.model.movieVideo.MovieVideoResponse
 import com.example.movieapp.data.model.moviesResponse.MoviesResponse
+import com.example.movieapp.data.model.similarMovies.SimilarMoviesResponse
 import com.example.movieapp.data.model.trending.TrendsResponse
 import com.example.movieapp.data.model.tvShowResponse.TvShowResponse
 import retrofit2.Response
@@ -58,4 +62,28 @@ interface MovieRemoteService {
     suspend fun getGenreTvList(
             @Query("language") language:String = "en-US" // uk-UK Українська
     ):Response<GenreResponse>
+
+    @GET("movie/{movie_id}")
+    suspend fun getMovieDetails(
+            @Path("movie_id") movie_id:Int,
+            @Query("language") language:String = "en-US"
+    ):Response<MovieDetailsResponse>
+
+    @GET("movie/{movie_id}/similar")
+    suspend fun getSimilarMovies(
+            @Path("movie_id") movie_id:Int,
+            @Query("language") language:String = "en-US"
+    ):Response<SimilarMoviesResponse>
+
+    @GET("movie/{movie_id}/videos")
+    suspend fun getMovieVideos(
+            @Path("movie_id") movie_id:Int,
+            @Query("language") language:String = "en-US"
+    ):Response<MovieVideoResponse>
+
+    @GET("movie/{movie_id}/credits")
+    suspend fun getMovieCast(
+            @Path("movie_id") movie_id:Int,
+            @Query("language") language:String = "en-US"
+    ):Response<CastResponse>
 }

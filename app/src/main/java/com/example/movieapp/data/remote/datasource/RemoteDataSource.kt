@@ -1,7 +1,11 @@
 package com.example.movieapp.data.remote.datasource
 
+import com.example.movieapp.data.model.cast.CastResponse
 import com.example.movieapp.data.model.genre.GenreResponse
+import com.example.movieapp.data.model.movieDetails.MovieDetailsResponse
+import com.example.movieapp.data.model.movieVideo.MovieVideoResponse
 import com.example.movieapp.data.model.moviesResponse.MoviesResponse
+import com.example.movieapp.data.model.similarMovies.SimilarMoviesResponse
 import com.example.movieapp.data.model.trending.TrendsResponse
 import com.example.movieapp.data.model.tvShowResponse.TvShowResponse
 import com.example.movieapp.data.remote.LoadStatus
@@ -19,7 +23,11 @@ class RemoteDataSource
         UpcomingMoviesSource,
         AiringTodayTvShowSource,
         MovieGenreSource,
-        TvGenreSource
+        TvGenreSource,
+        MovieCastSource,
+        MovieDetailsSource,
+        MovieVideosSource,
+        SimilarMoviesSource
 {
 
     override suspend fun getMovieTrendsSource(media_type: String, time_window: String, language: String, page: Int): LoadStatus<TrendsResponse> {
@@ -58,5 +66,21 @@ class RemoteDataSource
 
     override suspend fun getGenreTvList(language: String): LoadStatus<GenreResponse> {
         return saveApiCall { apiService.getGenreTvList(language) }
+    }
+
+    override suspend fun getMovieCast(movie_id: Int, language: String): LoadStatus<CastResponse> {
+        return saveApiCall { apiService.getMovieCast(movie_id, language) }
+    }
+
+    override suspend fun getMovieDetails(movie_id: Int, language: String): LoadStatus<MovieDetailsResponse> {
+        return saveApiCall { apiService.getMovieDetails(movie_id, language) }
+    }
+
+    override suspend fun getMovieVideos(movie_id: Int, language: String): LoadStatus<MovieVideoResponse> {
+        return saveApiCall { apiService.getMovieVideos(movie_id, language) }
+    }
+
+    override suspend fun getSimilarMovies(movie_id: Int, language: String): LoadStatus<SimilarMoviesResponse> {
+        return saveApiCall { apiService.getSimilarMovies(movie_id, language) }
     }
 }

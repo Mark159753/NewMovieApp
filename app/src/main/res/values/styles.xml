@@ -26,4 +26,14 @@
         <item name="fontFamily">@font/roboto_bold</item>
         <item name="android:textSize">18sp</item>
     </style>
+
+
+    <style name="ShapeAppearanceOverlay.RoundedCorner">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">8dp</item>
+    </style>
+
+    <style name="ShapeAppearanceOverlay.CircleShape">
+        <item name="cornerSize">50%</item>
+    </style>
 </resources>

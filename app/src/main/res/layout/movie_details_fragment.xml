@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/movie_details_content_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/movie_details_toolbar"
+            style="@style/Widget.MaterialComponents.Toolbar.Surface"
+            android:elevation="0dp"
+            app:layout_behavior=".ui.movie.details.behavior.ToolbarBehavior"
+            android:background="@android:color/transparent"
+            app:titleTextColor="@android:color/transparent"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:navigationIcon="@drawable/ic_arrow_back_24" />
+
+        <include
+            android:id="@+id/movie_details_loading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            layout="@layout/loading_layout"
+            android:layout_gravity="center"/>
+
+        <include
+            android:id="@+id/movie_details_no_connection"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            layout="@layout/no_internet_connection"
+            android:visibility="gone"/>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

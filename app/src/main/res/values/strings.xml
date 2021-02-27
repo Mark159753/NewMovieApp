@@ -24,4 +24,11 @@
     <string name="leng_setting_des">Change UI language to one of the list</string>
     <string name="leng_setting_title">Language</string>
     <string name="ui_mode">UI Mode</string>
+    <string name="the_cast_title">The Cast</string>
+    <string name="storyline_title">Storyline</string>
+    <string name="similar_like_this_title">Similar like this</string>
+    <string name="cant_find_video">Can\'t find video</string>
+    <string name="loading">Loading</string>
+    <string name="check_internet_connection">Check Internet Connection</string>
+    <string name="conection_lost">Lost Internet Connection</string>
 </resources>

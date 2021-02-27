@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="80dp"
+        android:layout_height="116dp">
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/cast_item_img"
+            android:layout_width="80dp"
+            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.CircleShape"
+            android:layout_height="80dp"
+            android:background="@color/light_gray"
+            android:scaleType="centerCrop"/>
+
+        <TextView
+            android:id="@+id/cast_item_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="Antonio Banderas"
+            android:textAppearance="@style/SmallLRegularText"
+            android:maxLines="2"
+            android:ellipsize="end"
+            android:textAlignment="center"/>
+
+    </LinearLayout>
+</layout>

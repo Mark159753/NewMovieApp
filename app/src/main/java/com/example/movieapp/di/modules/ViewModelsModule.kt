@@ -7,6 +7,7 @@ import com.example.movieapp.di.ViewModelFactoryDI
 import com.example.movieapp.di.ViewModelKey
 import com.example.movieapp.ui.comingSoon.ComingSoonViewModel
 import com.example.movieapp.ui.home.HomeViewModel
+import com.example.movieapp.ui.movie.details.MovieDetailsViewModel
 import com.example.movieapp.ui.trends.TrendsViewModel
 import dagger.Binds
 import dagger.Module
@@ -27,6 +28,11 @@ abstract class ViewModelsModule {
     @IntoMap
     @ViewModelKey(ComingSoonViewModel::class)
     abstract fun bindComingSoonViewModel(model: ComingSoonViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(MovieDetailsViewModel::class)
+    abstract fun bindMovieDetailsViewModel(model: MovieDetailsViewModel): ViewModel
 
     @Binds
     @IntoMap

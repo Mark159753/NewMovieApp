@@ -129,7 +129,7 @@ class HomeFragment : Fragment(), ItemClickListener {
     private fun observeConnection(){
         viewModel.connectionLiveData.observe(viewLifecycleOwner, Observer { isConnected ->
             if (!isConnected){
-                Toast.makeText(requireContext(), "No Internet Connection", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), getString(R.string.conection_lost), Toast.LENGTH_SHORT).show()
             }
         })
     }
@@ -138,6 +138,8 @@ class HomeFragment : Fragment(), ItemClickListener {
         when(contentType){
             ItemClickListener.MovieType -> {
                 Log.e("Movie", "Was Selected -> id: $id")
+                val action = HomeFragmentDirections.actionHomeFragmentToMovieDetailsFragment(id)
+                findNavController().navigate(action)
             }
             ItemClickListener.TvShowType -> {
                 Log.e("TvShow", "Was Selected -> id: $id")

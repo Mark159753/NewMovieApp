@@ -1,14 +1,8 @@
 package com.example.movieapp.di.modules
 
-import com.example.movieapp.data.repository.ComingRepositoryImpl
-import com.example.movieapp.data.repository.GenreRepositoryImpl
-import com.example.movieapp.data.repository.HomeRepositoryImpl
-import com.example.movieapp.data.repository.TrendRepositoryImpl
+import com.example.movieapp.data.repository.*
 import com.example.movieapp.di.components.FragmentScope
-import com.example.movieapp.domain.repository.ComingRepository
-import com.example.movieapp.domain.repository.GenreRepository
-import com.example.movieapp.domain.repository.HomeRepository
-import com.example.movieapp.domain.repository.TrendRepository
+import com.example.movieapp.domain.repository.*
 import dagger.Binds
 import dagger.Module
 
@@ -30,4 +24,8 @@ abstract class RepositoryModule {
     @Binds
     @FragmentScope
     abstract fun bindGenreRepository(repository: GenreRepositoryImpl):GenreRepository
+
+    @Binds
+    @FragmentScope
+    abstract fun bindMovieDetailsRepository(repository: MovieDetailsRepositoryImpl):MovieDetailsRepository
 }

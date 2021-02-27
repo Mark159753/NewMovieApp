@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/movie_details_storyline_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/storyline_title"
+        android:layout_marginTop="8dp"
+        android:textAppearance="@style/BoldHeaderText"
+        android:layout_marginHorizontal="@dimen/horizontal_margin" />
+    <TextView
+        android:id="@+id/movie_details_storyline"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/SmallLRegularText"
+        android:layout_marginHorizontal="@dimen/horizontal_margin"
+        tools:text="@string/lorem"/>
+</LinearLayout>
+</layout>

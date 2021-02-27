@@ -10,8 +10,10 @@
 
         <!-- Status bar color. -->
         <item name="android:windowBackground">@color/windowLightBackground</item>
+        <item name="colorBackgroundFloating">@color/windowLightBackground</item>
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorSecondary</item>
         <item name="android:windowLightStatusBar">true</item>
+        <item name="colorSurface">@color/windowLightBackground</item>
         <!-- Customize your theme here. -->
 
         <item name="android:textColorPrimary">@color/black</item>

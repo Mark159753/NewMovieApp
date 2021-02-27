@@ -31,4 +31,16 @@ abstract class RemoteDataSourceModule {
 
     @Binds
     abstract fun bindTvGenreSource(source: RemoteDataSource): TvGenreSource
+
+    @Binds
+    abstract fun bindMovieCastSource(source: RemoteDataSource):MovieCastSource
+
+    @Binds
+    abstract fun bindMovieDetailsSource(source: RemoteDataSource):MovieDetailsSource
+
+    @Binds
+    abstract fun bindMovieVideoSource(source: RemoteDataSource):MovieVideosSource
+
+    @Binds
+    abstract fun bindSimilarMovieSource(source: RemoteDataSource):SimilarMoviesSource
 }
