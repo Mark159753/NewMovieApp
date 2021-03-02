@@ -1,4 +1,4 @@
-package com.example.movieapp.ui.movie.details
+package com.example.movieapp.ui.details.movie
 
 import android.content.ActivityNotFoundException
 import android.content.Intent
@@ -18,17 +18,19 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.movieapp.MovieApp
 import com.example.movieapp.R
-import com.example.movieapp.data.model.movieVideo.Result
 import com.example.movieapp.databinding.MovieDetailsFragmentBinding
-import com.example.movieapp.ui.movie.details.adapter.*
+import com.example.movieapp.ui.details.movie.adapter.*
+import com.example.movieapp.ui.details.movie.state.Action
+import com.example.movieapp.ui.details.movie.state.Data
+import com.example.movieapp.ui.details.movie.state.Event
+import com.example.movieapp.ui.details.movie.state.State
 import com.example.movieapp.until.isInternetAvailable
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-class MovieDetailsFragment : Fragment(), ItemClickListener{
+class MovieDetailsFragment : Fragment(), ItemClickListener {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -38,7 +40,7 @@ class MovieDetailsFragment : Fragment(), ItemClickListener{
     private val similarMovieAdapter = SimilarMovieAdapter()
     private val movieDetailsAdapter = MovieDetailsAdapter()
 
-    val args:MovieDetailsFragmentArgs by navArgs()
+    val args: MovieDetailsFragmentArgs by navArgs()
 
     private var binding:MovieDetailsFragmentBinding? = null
 
@@ -53,53 +55,74 @@ class MovieDetailsFragment : Fragment(), ItemClickListener{
         injectMe()
 
         initToolbar()
+        initAllAdapters()
         observeConnectivity()
-        if (isInternetAvailable(requireContext())) {
-            showLoading(true)
 
-            initAllAdapters()
+        handleState()
+        handleEvent()
+        if (isInternetAvailable(requireContext())) {
+            viewModel.setAction(Action.Load(args.movieId))
         }else{
-            showNoInternetConnectionMsg()
+            viewModel.setAction(Action.NoInternetConnection)
         }
     }
 
+
+    private fun handleState(){
+        lifecycleScope.launch {
+            viewModel.state.collect {
+                when(it){
+                    State.LoadingState -> {
+                        showLoading(true)
+                    }
+                    State.NoInternetConnection -> {
+                        showNoInternetConnectionMsg()
+                    }
+                    is State.DataState -> {
+                        showLoading(false)
+                        setLoadedData(it.data)
+                    }
+                }
+            }
+        }
+    }
+
+    private fun handleEvent(){
+        lifecycleScope.launch {
+            viewModel.event.collect {
+                when(it){
+                    is Event.ShowToast -> {
+                        showToast(it.msg)
+                    }
+                    is Event.PlayYoutubeVideo -> {
+                        it.key?.let { k -> startYoutube(k) } ?: showToast(getString(R.string.cant_find_video))
+                    }
+                }
+            }
+        }
+    }
+
+
     private fun initAllAdapters(){
-        initCastAdapter()
-        initSimilarMovieAdapter()
-        initContentAdapter()
+        similarMovieAdapter.setListener(this)
+        castAdapter.setListener(this)
+        movieDetailsAdapter.setListener(this)
         initContentList()
     }
 
-    private fun initSimilarMovieAdapter(){
-        similarMovieAdapter.setListener(this)
+    private fun setLoadedData(data: Data) {
         lifecycleScope.launch {
-            viewModel.getSimilarMovies(args.movieId).collectLatest {
+            data.similarMovies.collectLatest {
                 similarMovieAdapter.submitData(it)
             }
         }
-    }
-
-    private fun initCastAdapter(){
-        castAdapter.setListener(this)
-        lifecycleScope.launch {
-            val cast = viewModel.loadMovieCast(args.movieId)
-            cast?.let { castAdapter.setDataList(it) }
+        data.movieCast?.let { castAdapter.setDataList(it) }
+        data.movieDetails?.let {
+            binding!!.movieDetailsToolbar.title = it.title
+            movieDetailsAdapter.setData(MovieDetailsData(it, castAdapter, similarMovieAdapter))
         }
     }
 
-    private fun initContentAdapter(){
-        movieDetailsAdapter.setListener(this)
-        lifecycleScope.launch {
-            val details = withContext(Dispatchers.IO){
-                viewModel.loadDetails(args.movieId)
-            }
-            binding!!.movieDetailsToolbar.title = details?.title
-            details?.let {
-                showLoading(false)
-                movieDetailsAdapter.setData(MovieDetailsData(it, castAdapter, similarMovieAdapter))
-            }
-        }
-    }
 
     private fun initContentList(){
         binding!!.movieDetailsContentList.apply {
@@ -108,13 +131,6 @@ class MovieDetailsFragment : Fragment(), ItemClickListener{
         }
     }
 
-
-    private fun getVideoKey(list:List<Result>):String?{
-        list.forEach {
-            if (it.site == "YouTube") return it.key
-        }
-        return null
-    }
 
     private fun startYoutube(key:String){
         val youTubeIntent = Intent(Intent.ACTION_VIEW,
@@ -136,16 +152,16 @@ class MovieDetailsFragment : Fragment(), ItemClickListener{
         when(type){
             ItemClickListener.MOVIE_TYPE ->{
                 Log.e("MOVIE ->", "CLICK")
+                val action = MovieDetailsFragmentDirections.actionMovieDetailsFragmentSelf(id)
+                findNavController().navigate(action)
             }
             ItemClickListener.PERSON_TYPE -> {
                 Log.e("PERSON ->", "CLICK")
+                val action = MovieDetailsFragmentDirections.actionMovieDetailsFragmentToPersonDetailsFragment(id)
+                findNavController().navigate(action)
             }
             ItemClickListener.VIDEO_TYPE -> {
-                lifecycleScope.launch {
-                    val videos = viewModel.loadVideos(args.movieId)
-                    val key = videos?.let { getVideoKey(it.results!!) }
-                    key?.let { startYoutube(it) } ?: showToast(getString(R.string.cant_find_video))
-                }
+                viewModel.setAction(Action.PlayYouTubeVideo(args.movieId))
             }
         }
     }
@@ -174,7 +190,7 @@ class MovieDetailsFragment : Fragment(), ItemClickListener{
     private fun showLoading(show:Boolean){
         if (show){
             binding!!.apply {
-                movieDetailsToolbar.visibility = View.GONE
+                movieDetailsToolbar.visibility = View.VISIBLE
                 movieDetailsContentList.visibility = View.GONE
                 movieDetailsLoading.visibility = View.VISIBLE
                 movieDetailsNoConnection.visibility = View.GONE
@@ -192,10 +208,9 @@ class MovieDetailsFragment : Fragment(), ItemClickListener{
     private fun observeConnectivity(){
         viewModel.connectivityLiveData.observe(viewLifecycleOwner, Observer {
             if (it){
-                showLoading(true)
-                initAllAdapters()
+                viewModel.setAction(Action.Load(args.movieId))
             }else{
-                showToast(getString(R.string.conection_lost))
+                viewModel.setAction(Action.LostInternetConnection)
             }
         })
     }

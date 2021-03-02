@@ -48,8 +48,8 @@ class HomeFragment : Fragment(), ItemClickListener {
         return binder!!.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         injectMe()
         observeConnection()
@@ -61,7 +61,6 @@ class HomeFragment : Fragment(), ItemClickListener {
         initOuterAdapter()
 
         initHomeList()
-
     }
 
 
@@ -143,9 +142,13 @@ class HomeFragment : Fragment(), ItemClickListener {
             }
             ItemClickListener.TvShowType -> {
                 Log.e("TvShow", "Was Selected -> id: $id")
+                val action = HomeFragmentDirections.actionHomeFragmentToTvDetailsFragment(id)
+                findNavController().navigate(action)
             }
             ItemClickListener.PersonType -> {
                 Log.e("Person", "Was Selected -> id: $id")
+                val action = HomeFragmentDirections.actionHomeFragmentToPersonDetailsFragment(id)
+                findNavController().navigate(action)
             }
         }
     }

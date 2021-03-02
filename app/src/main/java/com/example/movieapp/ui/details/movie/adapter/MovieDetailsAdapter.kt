@@ -1,4 +1,4 @@
-package com.example.movieapp.ui.movie.details.adapter
+package com.example.movieapp.ui.details.movie.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -14,14 +14,14 @@ import java.lang.IllegalStateException
 
 class MovieDetailsAdapter:RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private var data:MovieDetailsData? = null
-    private var listener:ItemClickListener? = null
+    private var data: MovieDetailsData? = null
+    private var listener: ItemClickListener? = null
 
-    fun setListener(l:ItemClickListener){
+    fun setListener(l: ItemClickListener){
         listener = l
     }
 
-    fun setData(d:MovieDetailsData){
+    fun setData(d: MovieDetailsData){
         this.data = d
         notifyDataSetChanged()
     }
@@ -56,7 +56,7 @@ class MovieDetailsAdapter:RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             private val binder:MovieDetailsSimilarItemBinding
     ):RecyclerView.ViewHolder(binder.root){
 
-        fun bind(similarAdapter:SimilarMovieAdapter){
+        fun bind(similarAdapter: SimilarMovieAdapter){
             binder.movieDetailsSimilarList.apply {
                 adapter = similarAdapter
                 setHasFixedSize(true)
@@ -65,7 +65,7 @@ class MovieDetailsAdapter:RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         }
 
         companion object{
-            fun create(parent: ViewGroup):SimilarMoviesViewHolder{
+            fun create(parent: ViewGroup): SimilarMoviesViewHolder {
                 val inflater = LayoutInflater.from(parent.context)
                 val b = MovieDetailsSimilarItemBinding.inflate(inflater, parent, false)
                 return SimilarMoviesViewHolder(b)
@@ -82,7 +82,7 @@ class MovieDetailsAdapter:RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         }
 
         companion object{
-            fun create(parent: ViewGroup):DescriptionViewHolder{
+            fun create(parent: ViewGroup): DescriptionViewHolder {
                 val inflater = LayoutInflater.from(parent.context)
                 val b = MovieDetailsDescriptionItemBinding.inflate(inflater, parent, false)
                 return DescriptionViewHolder(b)
@@ -94,7 +94,7 @@ class MovieDetailsAdapter:RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             private val binder:MovieDetailsCastItemBinding
     ):RecyclerView.ViewHolder(binder.root){
 
-        fun bind(castAdapter:CastAdapter){
+        fun bind(castAdapter: CastAdapter){
             binder.movieDetailsCastList.apply {
                 adapter = castAdapter
                 setHasFixedSize(true)
@@ -103,7 +103,7 @@ class MovieDetailsAdapter:RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         }
 
         companion object{
-            fun create(parent: ViewGroup):CastViewHolder{
+            fun create(parent: ViewGroup): CastViewHolder {
                 val inflater = LayoutInflater.from(parent.context)
                 val b = MovieDetailsCastItemBinding.inflate(inflater, parent, false)
                 return CastViewHolder(b)
@@ -115,7 +115,7 @@ class MovieDetailsAdapter:RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             private val binder:MovieDetailsheaderItemBinding
     ):RecyclerView.ViewHolder(binder.root){
 
-        fun bind(data:MovieDetailsResponse, listener:ItemClickListener?){
+        fun bind(data:MovieDetailsResponse, listener: ItemClickListener?){
             binder.movieDetails = data
             binder.movieDetailsPlayVideoBtn.setOnClickListener {
                 listener?.itemClicked(ItemClickListener.VIDEO_TYPE, data.id)
@@ -123,7 +123,7 @@ class MovieDetailsAdapter:RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         }
 
         companion object{
-            fun create(parent: ViewGroup):HeaderViewHolder{
+            fun create(parent: ViewGroup): HeaderViewHolder {
                 val inflater = LayoutInflater.from(parent.context)
                 val b = MovieDetailsheaderItemBinding.inflate(inflater, parent, false)
                 return HeaderViewHolder(b)

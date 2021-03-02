@@ -1,4 +1,4 @@
-package com.example.movieapp.ui.movie.details.behavior
+package com.example.movieapp.ui.details.movie.behavior
 
 import android.content.Context
 import android.content.res.Resources
@@ -6,7 +6,6 @@ import android.graphics.Color
 import android.os.Bundle
 import android.os.Parcelable
 import android.util.AttributeSet
-import android.util.Log
 import android.util.TypedValue
 import android.view.View
 import androidx.coordinatorlayout.widget.CoordinatorLayout

@@ -12,9 +12,26 @@
         tools:layout="@layout/home_fragment" >
         <action
             android:id="@+id/action_homeFragment_to_movieDetailsFragment"
-            app:destination="@id/movieDetailsFragment" >
+            app:destination="@id/movieDetailsFragment"
+            app:launchSingleTop="true">
             <argument
                 android:name="movieId"
+                android:defaultValue="-1"
+                app:argType="integer" />
+        </action>
+        <action
+            android:id="@+id/action_homeFragment_to_tvDetailsFragment"
+            app:destination="@id/tvDetailsFragment" >
+            <argument
+                android:name="tvId"
+                app:argType="integer"
+                android:defaultValue="-1"/>
+        </action>
+        <action
+            android:id="@+id/action_homeFragment_to_personDetailsFragment"
+            app:destination="@id/personDetailsFragment" >
+            <argument
+                android:name="personId"
                 app:argType="integer"
                 android:defaultValue="-1"/>
         </action>
@@ -23,22 +40,99 @@
         android:id="@+id/trendsFragment"
         android:name="com.example.movieapp.ui.trends.TrendsFragment"
         android:label="trends_fragment"
-        tools:layout="@layout/trends_fragment" />
+        tools:layout="@layout/trends_fragment" >
+        <action
+            android:id="@+id/action_trendsFragment_to_movieDetailsFragment"
+            app:destination="@id/movieDetailsFragment"
+            app:launchSingleTop="true">
+            <argument
+                android:name="movieId"
+                android:defaultValue="-1"
+                app:argType="integer" />
+        </action>
+        <action
+            android:id="@+id/action_trendsFragment_to_personDetailsFragment"
+            app:destination="@id/personDetailsFragment"
+            app:launchSingleTop="true">
+            <argument
+                android:name="personId"
+                android:defaultValue="-1"
+                app:argType="integer" />
+        </action>
+        <action
+            android:id="@+id/action_trendsFragment_to_tvDetailsFragment"
+            app:destination="@id/tvDetailsFragment"
+            app:launchSingleTop="true">
+            <argument
+                android:name="tvId"
+                android:defaultValue="-1"
+                app:argType="integer" />
+        </action>
+    </fragment>
     <fragment
         android:id="@+id/comingSoonFragment"
         android:name="com.example.movieapp.ui.comingSoon.ComingSoonFragment"
         android:label="coming_soon_fragment"
-        tools:layout="@layout/coming_soon_fragment" />
+        tools:layout="@layout/coming_soon_fragment" >
+        <action
+            android:id="@+id/action_comingSoonFragment_to_movieDetailsFragment"
+            app:destination="@id/movieDetailsFragment"
+            app:launchSingleTop="true">
+            <argument
+                android:name="movieId"
+                android:defaultValue="-1"
+                app:argType="integer" />
+        </action>
+        <action
+            android:id="@+id/action_comingSoonFragment_to_tvDetailsFragment"
+            app:destination="@id/tvDetailsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/settingsFragment"
         android:name="com.example.movieapp.ui.settings.SettingsFragment"
         android:label="fragment_settings"/>
     <fragment
         android:id="@+id/movieDetailsFragment"
-        android:name="com.example.movieapp.ui.movie.details.MovieDetailsFragment"
+        android:name="com.example.movieapp.ui.details.movie.MovieDetailsFragment"
         android:label="MovieDetailsFragment">
         <argument
             android:name="movieId"
+            app:argType="integer"
+            android:defaultValue="-1"/>
+        <action
+            android:id="@+id/action_movieDetailsFragment_self"
+            app:destination="@id/movieDetailsFragment"
+            app:launchSingleTop="true">
+            <argument
+                android:name="movieId"
+                android:defaultValue="-1"
+                app:argType="integer" />
+        </action>
+        <action
+            android:id="@+id/action_movieDetailsFragment_to_personDetailsFragment"
+            app:destination="@id/personDetailsFragment"
+            app:launchSingleTop="true" >
+            <argument
+                android:name="personId"
+                app:argType="integer"
+                android:defaultValue="-1"/>
+        </action>
+    </fragment>
+    <fragment
+        android:id="@+id/personDetailsFragment"
+        android:name="com.example.movieapp.ui.details.person.PersonDetailsFragment"
+        android:label="PersonDetailsFragment" >
+        <argument
+            android:name="personId"
+            app:argType="integer"
+            android:defaultValue="-1"/>
+    </fragment>
+    <fragment
+        android:id="@+id/tvDetailsFragment"
+        android:name="com.example.movieapp.ui.details.tv.TvDetailsFragment"
+        android:label="TvDetailsFragment" >
+        <argument
+            android:name="tvId"
             app:argType="integer"
             android:defaultValue="-1"/>
     </fragment>

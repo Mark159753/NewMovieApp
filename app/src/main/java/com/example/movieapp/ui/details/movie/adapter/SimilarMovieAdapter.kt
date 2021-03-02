@@ -1,4 +1,4 @@
-package com.example.movieapp.ui.movie.details.adapter
+package com.example.movieapp.ui.details.movie.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -11,9 +11,9 @@ import com.squareup.picasso.Picasso
 
 class SimilarMovieAdapter:PagingDataAdapter<SimilarMovie, SimilarMovieAdapter.SimilarMovieViewHolder>(COMPARATOR) {
 
-    private var listener:ItemClickListener? = null
+    private var listener: ItemClickListener? = null
 
-    fun setListener(l:ItemClickListener){
+    fun setListener(l: ItemClickListener){
         listener = l
     }
 
@@ -27,7 +27,7 @@ class SimilarMovieAdapter:PagingDataAdapter<SimilarMovie, SimilarMovieAdapter.Si
 
     class SimilarMovieViewHolder(private val binding:MovieItemBinding):RecyclerView.ViewHolder(binding.root){
 
-        fun bind(similarItem:SimilarMovie?, listener:ItemClickListener?){
+        fun bind(similarItem:SimilarMovie?, listener: ItemClickListener?){
             similarItem?.let { item ->
                 Picasso.get()
                         .load("https://image.tmdb.org/t/p/w500${item.poster_path}")
@@ -40,7 +40,7 @@ class SimilarMovieAdapter:PagingDataAdapter<SimilarMovie, SimilarMovieAdapter.Si
         }
 
         companion object{
-            fun create(parent: ViewGroup):SimilarMovieViewHolder{
+            fun create(parent: ViewGroup): SimilarMovieViewHolder {
                 val inflater = LayoutInflater.from(parent.context)
                 val b = MovieItemBinding.inflate(inflater, parent, false)
                 return SimilarMovieViewHolder(b)

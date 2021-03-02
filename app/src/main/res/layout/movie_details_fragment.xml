@@ -20,7 +20,7 @@
             android:id="@+id/movie_details_toolbar"
             style="@style/Widget.MaterialComponents.Toolbar.Surface"
             android:elevation="0dp"
-            app:layout_behavior=".ui.movie.details.behavior.ToolbarBehavior"
+            app:layout_behavior=".ui.details.movie.behavior.ToolbarBehavior"
             android:background="@android:color/transparent"
             app:titleTextColor="@android:color/transparent"
             android:layout_width="match_parent"

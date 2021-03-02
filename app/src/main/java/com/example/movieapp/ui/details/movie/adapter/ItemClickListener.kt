@@ -1,4 +1,4 @@
-package com.example.movieapp.ui.movie.details.adapter
+package com.example.movieapp.ui.details.movie.adapter
 
 interface ItemClickListener {
 

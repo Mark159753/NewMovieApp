@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.appcompat.widget.PopupMenu
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.paging.PagingData
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.movieapp.MovieApp
@@ -16,6 +17,7 @@ import com.example.movieapp.R
 import com.example.movieapp.databinding.TrendsFragmentBinding
 import com.example.movieapp.di.InjectingSavedStateViewModelFactory
 import com.example.movieapp.domain.model.TrendsData
+import com.example.movieapp.ui.home.listeners.ItemClickListener
 import com.example.movieapp.ui.trends.adapter.TrendListAdapter
 import com.example.movieapp.ui.trends.state.TrendAction
 import com.example.movieapp.ui.trends.state.TrendUiState
@@ -31,7 +33,7 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class TrendsFragment : Fragment() {
+class TrendsFragment : Fragment(), ItemClickListener {
 
     @Inject
     lateinit var abstractFactory: dagger.Lazy<InjectingSavedStateViewModelFactory>
@@ -51,8 +53,9 @@ class TrendsFragment : Fragment() {
         return binder!!.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         injectMe()
         savedInstanceState?.let {
             restoreTimeWindowTab(it.getInt(TIME_WINDOW_TAB))
@@ -90,6 +93,7 @@ class TrendsFragment : Fragment() {
     }
 
     private fun initTrendList(){
+        trendListAdapter.setListener(this)
         binder!!.trendsList.apply {
             adapter = trendListAdapter
             layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
@@ -162,9 +166,31 @@ class TrendsFragment : Fragment() {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putInt(TIME_WINDOW_TAB, binder!!.trendsTabs.selectedTabPosition)
+        binder?.let { b ->
+            outState.putInt(TIME_WINDOW_TAB, b.trendsTabs.selectedTabPosition)
+        }
     }
 
+
+    override fun onItemSelected(id: Int, contentType: Int) {
+        when(contentType){
+            ItemClickListener.MovieType -> {
+                Log.e("Movie", "Was Selected -> id: $id")
+                val action = TrendsFragmentDirections.actionTrendsFragmentToMovieDetailsFragment(id)
+                findNavController().navigate(action)
+            }
+            ItemClickListener.TvShowType -> {
+                Log.e("TvShow", "Was Selected -> id: $id")
+                val action = TrendsFragmentDirections.actionTrendsFragmentToTvDetailsFragment(id)
+                findNavController().navigate(action)
+            }
+            ItemClickListener.PersonType -> {
+                Log.e("Person", "Was Selected -> id: $id")
+                val action = TrendsFragmentDirections.actionTrendsFragmentToPersonDetailsFragment(id)
+                findNavController().navigate(action)
+            }
+        }
+    }
 
     private fun injectMe(){
         (activity?.application as MovieApp).getFragmentComponent()

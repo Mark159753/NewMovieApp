@@ -7,7 +7,6 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.movieapp.data.local.entitys.genre.MovieGenre
-import com.example.movieapp.data.local.entitys.genre.TvGenre
 import com.example.movieapp.databinding.ComingSoonItemBinding
 import com.example.movieapp.domain.model.MovieData
 import com.squareup.picasso.Picasso
@@ -16,15 +15,20 @@ import java.lang.IndexOutOfBoundsException
 class MovieAdapter:PagingDataAdapter<MovieData, MovieAdapter.ComingMovieViewHolder>(COMPARATOR) {
 
     private var movieGenre:List<MovieGenre>? = null
+    private var listener:ItemClickListener? = null
 
     fun setMovieGenreList(genres: List<MovieGenre>?) {
         movieGenre = genres
         notifyDataSetChanged()
     }
 
+    fun setClickListener(l:ItemClickListener){
+        this.listener = l
+    }
+
 
     override fun onBindViewHolder(holder: ComingMovieViewHolder, position: Int) {
-        holder.bind(getItem(position), movieGenre)
+        holder.bind(getItem(position), movieGenre, listener)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ComingMovieViewHolder {
@@ -34,7 +38,7 @@ class MovieAdapter:PagingDataAdapter<MovieData, MovieAdapter.ComingMovieViewHold
 
     class ComingMovieViewHolder(private val binding:ComingSoonItemBinding):RecyclerView.ViewHolder(binding.root){
 
-        fun bind(movieItem:MovieData?, movieGenre: List<MovieGenre>?){
+        fun bind(movieItem:MovieData?, movieGenre: List<MovieGenre>?, listener: ItemClickListener?){
             movieItem?.let { item ->
                 Picasso.get()
                     .load("https://image.tmdb.org/t/p/w500${item.poster_path}")
@@ -46,6 +50,9 @@ class MovieAdapter:PagingDataAdapter<MovieData, MovieAdapter.ComingMovieViewHold
                     comingItemDescription.text = item.overview
                 }
                 movieGenre?.let { bindMovieGenre(item.genre_ids!!, it) }
+                binding.root.setOnClickListener {
+                    listener?.onItemClicked(item.id)
+                }
             }
         }
 

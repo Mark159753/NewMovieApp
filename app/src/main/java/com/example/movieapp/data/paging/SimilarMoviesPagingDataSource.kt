@@ -25,7 +25,7 @@ class SimilarMoviesPagingDataSource(
                     LoadResult.Page(
                             data = res.data.results!!,
                             prevKey = if (key == 1) null else key - 1,
-                            nextKey = key + 1
+                            nextKey = if (res.data.results.isEmpty()) null else key + 1
                     )
                 }
                 is LoadStatus.Error -> {

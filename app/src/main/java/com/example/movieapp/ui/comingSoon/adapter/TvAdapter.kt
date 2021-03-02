@@ -15,14 +15,19 @@ import java.lang.IndexOutOfBoundsException
 class TvAdapter:PagingDataAdapter<TvShowData, TvAdapter.AiringTvViewHolder>(COMPARATOR) {
 
     private var tvGenre:List<TvGenre>? = null
+    private var listener:ItemClickListener? = null
 
     fun setTvGenreList(genres: List<TvGenre>?) {
         tvGenre = genres
         notifyDataSetChanged()
     }
 
+    fun setClickListener(l:ItemClickListener){
+        this.listener = l
+    }
+
     override fun onBindViewHolder(holder: AiringTvViewHolder, position: Int) {
-        holder.bind(getItem(position), tvGenre)
+        holder.bind(getItem(position), tvGenre,  listener)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AiringTvViewHolder {
@@ -33,7 +38,7 @@ class TvAdapter:PagingDataAdapter<TvShowData, TvAdapter.AiringTvViewHolder>(COMP
         private val binding: ComingSoonItemBinding
     ):RecyclerView.ViewHolder(binding.root){
 
-        fun bind(tvItem:TvShowData?, tvGenre:List<TvGenre>?){
+        fun bind(tvItem:TvShowData?, tvGenre:List<TvGenre>?,  listener:ItemClickListener?){
             tvItem?.let { item ->
                 Picasso.get()
                     .load("https://image.tmdb.org/t/p/w500${item.poster_path}")
@@ -46,6 +51,9 @@ class TvAdapter:PagingDataAdapter<TvShowData, TvAdapter.AiringTvViewHolder>(COMP
                 }
 
                 tvGenre?.let { bindTvGenre(item.genre_ids!!, it) }
+                binding.root.setOnClickListener {
+                    listener?.onItemClicked(item.id)
+                }
             }
         }
 

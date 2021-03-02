@@ -1,4 +1,4 @@
-package com.example.movieapp.ui.movie.details.adapter
+package com.example.movieapp.ui.details.movie.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -10,9 +10,9 @@ import com.squareup.picasso.Picasso
 class CastAdapter():RecyclerView.Adapter<CastAdapter.CastViewHolder>() {
 
     private var dataList:List<Cast> = emptyList()
-    private var listener:ItemClickListener? = null
+    private var listener: ItemClickListener? = null
 
-    fun setListener(l:ItemClickListener){
+    fun setListener(l: ItemClickListener){
         listener = l
     }
 
@@ -35,7 +35,7 @@ class CastAdapter():RecyclerView.Adapter<CastAdapter.CastViewHolder>() {
 
     class CastViewHolder(private val binding:CastItemBinding):RecyclerView.ViewHolder(binding.root){
 
-        fun bind(castItem:Cast, listener:ItemClickListener?){
+        fun bind(castItem:Cast, listener: ItemClickListener?){
             Picasso.get()
                     .load("https://image.tmdb.org/t/p/w500${castItem.profile_path}")
                     .into(binding.castItemImg)
@@ -46,7 +46,7 @@ class CastAdapter():RecyclerView.Adapter<CastAdapter.CastViewHolder>() {
         }
 
         companion object{
-            fun create(parent: ViewGroup):CastViewHolder{
+            fun create(parent: ViewGroup): CastViewHolder {
                 val inflater = LayoutInflater.from(parent.context)
                 val v = CastItemBinding.inflate(inflater, parent, false)
                 return CastViewHolder(v)

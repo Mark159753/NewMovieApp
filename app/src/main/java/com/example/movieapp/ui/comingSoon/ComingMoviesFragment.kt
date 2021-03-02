@@ -8,17 +8,19 @@ import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.movieapp.MovieApp
 import com.example.movieapp.R
+import com.example.movieapp.ui.comingSoon.adapter.ItemClickListener
 import com.example.movieapp.ui.comingSoon.adapter.MovieAdapter
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 
-class ComingMoviesFragment : Fragment() {
+class ComingMoviesFragment : Fragment(), ItemClickListener {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -51,6 +53,7 @@ class ComingMoviesFragment : Fragment() {
     }
 
     private fun initAdapter(){
+        movieAdapter.setClickListener(this)
         lifecycleScope.launch {
             val genres = viewModel.getMovieGenre()
             movieAdapter.setMovieGenreList(genres)
@@ -58,6 +61,11 @@ class ComingMoviesFragment : Fragment() {
                 movieAdapter.submitData(it)
             }
         }
+    }
+
+    override fun onItemClicked(id: Int) {
+        val action = ComingSoonFragmentDirections.actionComingSoonFragmentToMovieDetailsFragment(id)
+        findNavController().navigate(action)
     }
 
     private fun injectMe(){
