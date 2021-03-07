@@ -10,30 +10,40 @@ import kotlinx.coroutines.flow.Flow
 
 
 sealed class TrendAction{
-    data class TrendTimeWindow(val trendTimeWindow: TimeWindow, val language:String):TrendAction()
-    data class TrendContentType(val mediaTypes: MediaTypes, val language:String):TrendAction()
+    object LostInternetConnection:TrendAction()
+    object NoInternetConnection:TrendAction()
+    data class FetchData(val parameters: TrendQueryParameters):TrendAction()
 }
 
-data class TrendUiState(
-    val pagingData: Flow<PagingData<TrendsData>>? = null,
-    val queryParameters: TrendQueryParameters
-){
-
-    companion object{
-        fun initState():TrendUiState{
-            return TrendUiState(
-                    queryParameters = TrendQueryParameters(
-                        trendTimeWindow = TimeWindow.Day,
-                        trendContentType = MediaTypes.All
-                    )
-            )
-        }
-    }
+sealed class TrendEvent{
+    data class ShowToast(val msg:String):TrendEvent()
 }
+
+sealed class State{
+    object NoInternetConnection:State()
+    object Loading:State()
+    data class DataSuccess(
+            val pagingData: Flow<PagingData<TrendsData>>? = null,
+            val queryParameters: TrendQueryParameters
+    ):State()
+}
+
 
 @Parcelize
 data class TrendQueryParameters(
     val trendTimeWindow: TimeWindow,
-    val trendContentType:MediaTypes,
-    val language:String = "en-us"
-):Parcelable
+    val trendContentType:MediaTypes
+):Parcelable{
+
+    companion object{
+        fun createTimeWindowParameters(timeWindow: TimeWindow, oldParam:TrendQueryParameters?):TrendQueryParameters{
+            return oldParam?.let { TrendQueryParameters(timeWindow, oldParam.trendContentType) }
+                    ?: TrendQueryParameters(timeWindow, MediaTypes.All)
+        }
+
+        fun createContentTypeParameters(mediaTypes: MediaTypes, oldParam:TrendQueryParameters?):TrendQueryParameters{
+            return oldParam?.let { TrendQueryParameters(oldParam.trendTimeWindow, mediaTypes) }
+                    ?: TrendQueryParameters(TimeWindow.Day, mediaTypes)
+        }
+    }
+}

@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.widget.PopupMenu
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -19,18 +20,18 @@ import com.example.movieapp.di.InjectingSavedStateViewModelFactory
 import com.example.movieapp.domain.model.TrendsData
 import com.example.movieapp.ui.home.listeners.ItemClickListener
 import com.example.movieapp.ui.trends.adapter.TrendListAdapter
+import com.example.movieapp.ui.trends.state.State
 import com.example.movieapp.ui.trends.state.TrendAction
-import com.example.movieapp.ui.trends.state.TrendUiState
-import com.example.movieapp.until.LocaleHelper
-import com.example.movieapp.until.MarginItemDecorator
-import com.example.movieapp.until.MediaTypes
-import com.example.movieapp.until.TimeWindow
+import com.example.movieapp.ui.trends.state.TrendEvent
+import com.example.movieapp.ui.trends.state.TrendQueryParameters
+import com.example.movieapp.until.*
 import com.google.android.material.tabs.TabLayout
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import java.lang.IllegalArgumentException
 import javax.inject.Inject
 
 class TrendsFragment : Fragment(), ItemClickListener {
@@ -44,6 +45,7 @@ class TrendsFragment : Fragment(), ItemClickListener {
     private var trendListJob:Job? = null
 
     private var stateJob:Job? = null
+    private var eventJob:Job? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -65,6 +67,22 @@ class TrendsFragment : Fragment(), ItemClickListener {
         initTabLayout()
 
         initTrendList()
+
+        if (!isInternetAvailable(requireContext())){
+            viewModel.setAction(TrendAction.NoInternetConnection)
+        }
+
+        subscribeOnInternetConnection()
+    }
+
+    private fun subscribeOnInternetConnection() {
+        viewModel.connectivityLiveData.observe(viewLifecycleOwner){
+            if (it){
+                viewModel.setAction(TrendAction.FetchData(generateParameters(TimeWindow.Day, null)))
+            }else{
+                viewModel.setAction(TrendAction.LostInternetConnection)
+            }
+        }
     }
 
     override fun onStart() {
@@ -76,11 +94,36 @@ class TrendsFragment : Fragment(), ItemClickListener {
                         handleState(it)
                     }
         }
+
+        eventJob = lifecycleScope.launch {
+            viewModel.events.collect {
+                handleEvents(it)
+            }
+        }
     }
 
 
-    private fun handleState(state:TrendUiState){
-        state.pagingData?.let { submitTrendAdapter(it) }
+    private fun handleState(state:State){
+        when(state){
+            State.NoInternetConnection -> {
+                showNoInternetConnection()
+            }
+            State.Loading -> {
+                showLoading(true)
+            }
+            is State.DataSuccess -> {
+                showLoading(false)
+                state.pagingData?.let { submitTrendAdapter(it) }
+            }
+        }
+    }
+
+    private fun handleEvents(event: TrendEvent){
+        when(event){
+            is TrendEvent.ShowToast -> {
+                Toast.makeText(requireContext(), event.msg, Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
     private fun submitTrendAdapter(paging: Flow<PagingData<TrendsData>>){
@@ -109,10 +152,10 @@ class TrendsFragment : Fragment(), ItemClickListener {
                 tab?.let {
                     when (it.position) {
                         0 -> {
-                            viewModel.setAction(TrendAction.TrendTimeWindow(TimeWindow.Day, LocaleHelper.getLanguage(requireContext())))
+                            viewModel.setAction(TrendAction.FetchData(generateParameters(TimeWindow.Day, null)))
                         }
                         1 -> {
-                            viewModel.setAction(TrendAction.TrendTimeWindow(TimeWindow.Week, LocaleHelper.getLanguage(requireContext())))
+                            viewModel.setAction(TrendAction.FetchData(generateParameters(TimeWindow.Week, null)))
                         }
                         -1 -> {
                             Log.e("TabInvalid", "Invalid Position")
@@ -141,16 +184,16 @@ class TrendsFragment : Fragment(), ItemClickListener {
         popupMenu.setOnMenuItemClickListener {
             when(it.itemId){
                 R.id.trend_type_all -> {
-                    viewModel.setAction(TrendAction.TrendContentType(MediaTypes.All, LocaleHelper.getLanguage(requireContext())))
+                    viewModel.setAction(TrendAction.FetchData(generateParameters(null, MediaTypes.All)))
                 }
                 R.id.trend_type_movie -> {
-                    viewModel.setAction(TrendAction.TrendContentType(MediaTypes.Movie, LocaleHelper.getLanguage(requireContext())))
+                    viewModel.setAction(TrendAction.FetchData(generateParameters(null, MediaTypes.Movie)))
                 }
                 R.id.trend_type_tv_show -> {
-                    viewModel.setAction(TrendAction.TrendContentType(MediaTypes.Tv, LocaleHelper.getLanguage(requireContext())))
+                    viewModel.setAction(TrendAction.FetchData(generateParameters(null, MediaTypes.Tv)))
                 }
                 R.id.trend_type_person -> {
-                    viewModel.setAction(TrendAction.TrendContentType(MediaTypes.Person, LocaleHelper.getLanguage(requireContext())))
+                    viewModel.setAction(TrendAction.FetchData(generateParameters(null, MediaTypes.Person)))
                 }
             }
             false
@@ -206,6 +249,45 @@ class TrendsFragment : Fragment(), ItemClickListener {
     override fun onStop() {
         super.onStop()
         stateJob?.cancel()
+        eventJob?.cancel()
+    }
+
+    private fun showLoading(isLoading:Boolean){
+        if (isLoading){
+            binder?.apply {
+                trendsGroupOfViews.visibility = View.GONE
+                trendsLoading.visibility = View.VISIBLE
+                trendsNoInternetConnection.visibility = View.GONE
+            }
+        }else{
+            binder?.apply {
+                trendsGroupOfViews.visibility = View.VISIBLE
+                trendsLoading.visibility = View.GONE
+                trendsNoInternetConnection.visibility = View.GONE
+            }
+        }
+    }
+
+    private fun showNoInternetConnection(){
+        binder?.apply {
+            binder?.apply {
+                trendsGroupOfViews.visibility = View.GONE
+                trendsLoading.visibility = View.GONE
+                trendsNoInternetConnection.visibility = View.VISIBLE
+            }
+        }
+    }
+
+    private fun generateParameters(timeWindow: TimeWindow?, mediaTypes: MediaTypes?):TrendQueryParameters{
+        if (timeWindow == null && mediaTypes == null) throw IllegalArgumentException("Can't both argument be the NULL")
+
+        val old = if (viewModel.state.value is State.DataSuccess)
+            (viewModel.state.value as State.DataSuccess).queryParameters
+        else TrendQueryParameters.createTimeWindowParameters(TimeWindow.Day, null)
+
+        return timeWindow?.let { t ->
+            TrendQueryParameters(t, old.trendContentType)
+        } ?: TrendQueryParameters(old.trendTimeWindow, mediaTypes!!)
     }
 
     companion object{

@@ -71,8 +71,8 @@ class MovieDetailsViewModel @Inject constructor(
             action.collect {
                 when(it){
                     is Action.Load -> {
-                        loadData(it.id)
                         setState(State.LoadingState)
+                        loadData(it.id)
                     }
                     Action.LostInternetConnection -> {
                         setEvent(Event.ShowToast(context.resources.getString(R.string.conection_lost)))
@@ -111,7 +111,7 @@ class MovieDetailsViewModel @Inject constructor(
         }
     }
 
-    suspend fun loadDetails(id:Int):MovieDetailsResponse?{
+    private suspend fun loadDetails(id:Int):MovieDetailsResponse?{
         if (movieDetails != null) return movieDetails
         val res = repository.getMovieDetails(id, LocaleHelper.getLanguage(context))
         when(res){
