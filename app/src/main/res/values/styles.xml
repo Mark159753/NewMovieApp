@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+<!--    Text Appearances-->
+    <style name="BigBoldText" parent="TextAppearance.AppCompat">
+        <item name="fontFamily">@font/roboto_bold</item>
+        <item name="android:textSize">40sp</item>
+    </style>
     <style name="BoldHeaderText" parent="TextAppearance.AppCompat">
         <item name="fontFamily">@font/roboto_bold</item>
         <item name="android:textSize">20sp</item>
@@ -28,9 +33,15 @@
     </style>
 
 
+<!--    Shape Appearances-->
     <style name="ShapeAppearanceOverlay.RoundedCorner">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">8dp</item>
+    </style>
+
+    <style name="ShapeAppearanceOverlay.BottomLeftRoundedCorner">
+        <item name="cornerFamilyBottomLeft">rounded</item>
+        <item name="cornerSizeBottomLeft">26dp</item>
     </style>
 
     <style name="ShapeAppearanceOverlay.CircleShape">

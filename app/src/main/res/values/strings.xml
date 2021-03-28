@@ -31,4 +31,8 @@
     <string name="loading">Loading</string>
     <string name="check_internet_connection">Check Internet Connection</string>
     <string name="conection_lost">Lost Internet Connection</string>
+    <string name="person_yesrs_old">years old</string>
+    <string name="biography">Biography</string>
+    <string name="movies">Movies</string>
+    <string name="tv_series">TV Series</string>
 </resources>

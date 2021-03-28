@@ -4,4 +4,7 @@
     <dimen name="item_horizontal_margin">8dp</dimen>
     <dimen name="item_text_start_margin">8dp</dimen>
     <dimen name="back_height">200dp</dimen>
+    <dimen name="person_left_margin">30dp</dimen>
+
+    <dimen name="people_corner_radius">20dp</dimen>
 </resources>

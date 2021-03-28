@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="details"
+            type="com.example.movieapp.data.model.people.PeopleDetails" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/person_img"
+            android:layout_width="match_parent"
+            android:layout_height="454dp"
+            tools:background="@color/middle_gray"
+            android:layout_marginStart="@dimen/person_left_margin"
+            android:scaleType="centerCrop"
+            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.BottomLeftRoundedCorner"
+            app:loadImg="@{details.profile_path}"
+
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"/>
+
+        <TextView
+            android:id="@+id/person_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/person_left_margin"
+            android:layout_marginEnd="@dimen/horizontal_margin"
+            tools:text="Zendaya Coleman"
+            android:textAppearance="@style/BigBoldText"
+            android:text="@{details.name}"
+
+            app:layout_constraintTop_toBottomOf="@id/person_img"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintHorizontal_bias="0"/>
+
+        <TextView
+            android:id="@+id/person_age"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/person_left_margin"
+            android:layout_marginEnd="@dimen/horizontal_margin"
+            tools:text="24 years"
+            android:textSize="16sp"
+            app:birthday="@{details.birthday}"
+            app:deathday="@{details.deathday}"
+
+            app:layout_constraintTop_toBottomOf="@id/person_name"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintHorizontal_bias="0"/>
+
+        <TextView
+            android:id="@+id/person_biography_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/person_left_margin"
+            android:layout_marginEnd="@dimen/horizontal_margin"
+            android:text="@string/biography"
+            android:textAppearance="@style/BoldHeaderText"
+
+            app:layout_constraintTop_toBottomOf="@id/person_age"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintHorizontal_bias="0"/>
+
+        <TextView
+            android:id="@+id/person_biography"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/person_left_margin"
+            android:layout_marginEnd="@dimen/horizontal_margin"
+            tools:text="@string/lorem"
+            android:textAppearance="@style/MiddleLightText"
+            android:text="@{details.biography}"
+
+            app:layout_constraintTop_toBottomOf="@id/person_biography_title"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -20,4 +20,11 @@
     <string name="leng_setting_des">Измените язык интерфейса на одни из списка</string>
     <string name="leng_setting_title">Языки</string>
     <string name="ui_mode">UI Режим</string>
+    <string name="the_cast_title">Актеры</string>
+    <string name="storyline_title">Сюжет</string>
+    <string name="similar_like_this_title">Похожие</string>
+    <string name="cant_find_video">Не магу найти видео</string>
+    <string name="loading">Загрузка</string>
+    <string name="check_internet_connection">"Проверьте Интернет соединение "</string>
+    <string name="conection_lost">"Интернет соединение потеряно "</string>
 </resources>

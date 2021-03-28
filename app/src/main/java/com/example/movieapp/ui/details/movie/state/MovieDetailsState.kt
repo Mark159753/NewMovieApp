@@ -3,7 +3,6 @@ package com.example.movieapp.ui.details.movie.state
 import androidx.paging.PagingData
 import com.example.movieapp.data.model.cast.Cast
 import com.example.movieapp.data.model.movieDetails.MovieDetailsResponse
-import com.example.movieapp.data.model.movieVideo.MovieVideoResponse
 import com.example.movieapp.data.model.similarMovies.SimilarMovie
 import kotlinx.coroutines.flow.Flow
 

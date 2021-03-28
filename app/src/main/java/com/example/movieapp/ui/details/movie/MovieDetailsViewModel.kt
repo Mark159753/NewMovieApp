@@ -9,7 +9,6 @@ import com.example.movieapp.R
 import com.example.movieapp.data.model.cast.Cast
 import com.example.movieapp.data.model.movieDetails.MovieDetailsResponse
 import com.example.movieapp.data.model.movieVideo.MovieVideoResponse
-import com.example.movieapp.data.model.movieVideo.Result
 import com.example.movieapp.data.model.similarMovies.SimilarMovie
 import com.example.movieapp.data.remote.LoadStatus
 import com.example.movieapp.domain.repository.MovieDetailsRepository

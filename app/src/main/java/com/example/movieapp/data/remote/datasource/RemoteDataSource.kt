@@ -1,10 +1,13 @@
 package com.example.movieapp.data.remote.datasource
 
 import com.example.movieapp.data.model.cast.CastResponse
+import com.example.movieapp.data.model.credits.MovieCreditsResponse
+import com.example.movieapp.data.model.credits.TvCreditsResponse
 import com.example.movieapp.data.model.genre.GenreResponse
 import com.example.movieapp.data.model.movieDetails.MovieDetailsResponse
 import com.example.movieapp.data.model.movieVideo.MovieVideoResponse
 import com.example.movieapp.data.model.moviesResponse.MoviesResponse
+import com.example.movieapp.data.model.people.PeopleDetails
 import com.example.movieapp.data.model.similarMovies.SimilarMoviesResponse
 import com.example.movieapp.data.model.trending.TrendsResponse
 import com.example.movieapp.data.model.tvShowResponse.TvShowResponse
@@ -27,7 +30,10 @@ class RemoteDataSource
         MovieCastSource,
         MovieDetailsSource,
         MovieVideosSource,
-        SimilarMoviesSource
+        SimilarMoviesSource,
+        PeopleDetailsSource,
+        MovieCreditsSource,
+        TvCreditsSource
 {
 
     override suspend fun getMovieTrendsSource(media_type: String, time_window: String, language: String, page: Int): LoadStatus<TrendsResponse> {
@@ -82,5 +88,17 @@ class RemoteDataSource
 
     override suspend fun getSimilarMovies(movie_id: Int, language: String): LoadStatus<SimilarMoviesResponse> {
         return saveApiCall { apiService.getSimilarMovies(movie_id, language) }
+    }
+
+    override suspend fun getPersonDetails(personId: Int, language: String): LoadStatus<PeopleDetails> {
+        return saveApiCall { apiService.getPersonDetails(personId, language) }
+    }
+
+    override suspend fun getMovieCredits(personId: Int, language: String): LoadStatus<MovieCreditsResponse> {
+        return saveApiCall { apiService.getMovieCredits(personId, language) }
+    }
+
+    override suspend fun getTvCredits(personId: Int, language: String): LoadStatus<TvCreditsResponse> {
+        return saveApiCall { apiService.getTvCredits(personId, language) }
     }
 }

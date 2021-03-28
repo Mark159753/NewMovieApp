@@ -1,10 +1,13 @@
 package com.example.movieapp.data.remote
 
 import com.example.movieapp.data.model.cast.CastResponse
+import com.example.movieapp.data.model.credits.MovieCreditsResponse
+import com.example.movieapp.data.model.credits.TvCreditsResponse
 import com.example.movieapp.data.model.genre.GenreResponse
 import com.example.movieapp.data.model.movieDetails.MovieDetailsResponse
 import com.example.movieapp.data.model.movieVideo.MovieVideoResponse
 import com.example.movieapp.data.model.moviesResponse.MoviesResponse
+import com.example.movieapp.data.model.people.PeopleDetails
 import com.example.movieapp.data.model.similarMovies.SimilarMoviesResponse
 import com.example.movieapp.data.model.trending.TrendsResponse
 import com.example.movieapp.data.model.tvShowResponse.TvShowResponse
@@ -86,4 +89,22 @@ interface MovieRemoteService {
             @Path("movie_id") movie_id:Int,
             @Query("language") language:String = "en-US"
     ):Response<CastResponse>
+
+    @GET("person/{person_id}")
+    suspend fun getPersonDetails(
+            @Path("person_id") person_id:Int,
+            @Query("language") language:String = "en-US"
+    ):Response<PeopleDetails>
+
+    @GET("person/{person_id}/movie_credits")
+    suspend fun getMovieCredits(
+            @Path("person_id") person_id:Int,
+            @Query("language") language:String = "en-US"
+    ):Response<MovieCreditsResponse>
+
+    @GET("person/{person_id}/tv_credits")
+    suspend fun getTvCredits(
+            @Path("person_id") person_id:Int,
+            @Query("language") language:String = "en-US"
+    ):Response<TvCreditsResponse>
 }
