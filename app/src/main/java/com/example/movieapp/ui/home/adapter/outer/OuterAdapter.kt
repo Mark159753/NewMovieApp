@@ -8,6 +8,7 @@ import com.example.movieapp.R
 import com.example.movieapp.databinding.HomeItemHeaderBinding
 import com.example.movieapp.databinding.HomeItemListBinding
 import com.example.movieapp.ui.home.adapter.HomeItem
+import com.example.movieapp.ui.home.listeners.ItemClickListener
 import com.example.movieapp.ui.home.transformer.SliderTransformer
 import com.example.movieapp.until.MarginItemDecorator
 import java.lang.IllegalStateException
@@ -17,6 +18,12 @@ class OuterAdapter(
         ):RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val viewPool = RecyclerView.RecycledViewPool()
+
+    private var listener: ItemClickListener? = null
+
+    fun setListener(l:ItemClickListener){
+        this.listener = l
+    }
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -30,7 +37,7 @@ class OuterAdapter(
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when(holder){
-            is HeaderViewHolder -> holder.bind(dataList[position])
+            is HeaderViewHolder -> holder.bind(dataList[position], listener)
             is TvShowViewHolder -> holder.bind(dataList[position], viewPool)
             is OrdinaryViewHolder -> holder.bind(dataList[position], viewPool)
         }
@@ -46,12 +53,15 @@ class OuterAdapter(
 
     class HeaderViewHolder(private val binding:HomeItemHeaderBinding):RecyclerView.ViewHolder(binding.root){
 
-        fun bind(item:HomeItem?){
+        fun bind(item:HomeItem?, listener: ItemClickListener?){
             item?.let { homeItem ->
                 binding.itemHomeTrends.apply {
                     adapter = homeItem.adapter
                     setPageTransformer(SliderTransformer(3))
                     offscreenPageLimit = 3
+                }
+                binding.itemSearchBox.setOnClickListener {
+                    listener?.onItemSelected(-1, ItemClickListener.SearchType)
                 }
             }
         }

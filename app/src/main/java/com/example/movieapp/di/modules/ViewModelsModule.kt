@@ -9,6 +9,7 @@ import com.example.movieapp.ui.comingSoon.ComingSoonViewModel
 import com.example.movieapp.ui.home.HomeViewModel
 import com.example.movieapp.ui.details.movie.MovieDetailsViewModel
 import com.example.movieapp.ui.details.person.PersonDetailsViewModel
+import com.example.movieapp.ui.search.SearchViewModel
 import com.example.movieapp.ui.trends.TrendsViewModel
 import dagger.Binds
 import dagger.Module
@@ -39,6 +40,11 @@ abstract class ViewModelsModule {
     @IntoMap
     @ViewModelKey(PersonDetailsViewModel::class)
     abstract fun bindPersonDetailsViewModel(model: PersonDetailsViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(SearchViewModel::class)
+    abstract fun bindSearchViewModel(model: SearchViewModel): ViewModel
 
     @Binds
     @IntoMap

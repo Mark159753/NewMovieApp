@@ -8,5 +8,6 @@ interface ItemClickListener {
         const val MovieType = 0
         const val TvShowType = 1
         const val PersonType = 2
+        const val SearchType = 3
     }
 }

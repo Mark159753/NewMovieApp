@@ -52,4 +52,7 @@ abstract class RemoteDataSourceModule {
 
     @Binds
     abstract fun bindTvCreditsSource(source: RemoteDataSource):TvCreditsSource
+
+    @Binds
+    abstract fun bindSearchDataSource(source: RemoteDataSource):SearchDataSource
 }

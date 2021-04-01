@@ -35,6 +35,9 @@
                 app:argType="integer"
                 android:defaultValue="-1"/>
         </action>
+        <action
+            android:id="@+id/action_homeFragment_to_searchFragment"
+            app:destination="@id/searchFragment" />
     </fragment>
     <fragment
         android:id="@+id/trendsFragment"
@@ -153,5 +156,19 @@
             android:name="tvId"
             app:argType="integer"
             android:defaultValue="-1"/>
+    </fragment>
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.example.movieapp.ui.search.SearchFragment"
+        android:label="SearchFragment" >
+        <action
+            android:id="@+id/action_searchFragment_to_tvDetailsFragment"
+            app:destination="@id/tvDetailsFragment" />
+        <action
+            android:id="@+id/action_searchFragment_to_personDetailsFragment"
+            app:destination="@id/personDetailsFragment" />
+        <action
+            android:id="@+id/action_searchFragment_to_movieDetailsFragment"
+            app:destination="@id/movieDetailsFragment" />
     </fragment>
 </navigation>

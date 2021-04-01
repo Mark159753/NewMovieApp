@@ -109,6 +109,7 @@ class HomeFragment : Fragment(), ItemClickListener {
         HomeItem(getString(R.string.popular_tv_show_item), popularTvShowAdapter),
         HomeItem(getString(R.string.popular_movies_item), popularMovieAdapter))
         outerAdapter = OuterAdapter(items)
+        outerAdapter.setListener(this)
     }
 
     private fun initHomeList(){
@@ -148,6 +149,10 @@ class HomeFragment : Fragment(), ItemClickListener {
             ItemClickListener.PersonType -> {
                 Log.e("Person", "Was Selected -> id: $id")
                 val action = HomeFragmentDirections.actionHomeFragmentToPersonDetailsFragment(id)
+                findNavController().navigate(action)
+            }
+            ItemClickListener.SearchType -> {
+                val action = HomeFragmentDirections.actionHomeFragmentToSearchFragment()
                 findNavController().navigate(action)
             }
         }

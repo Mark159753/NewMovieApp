@@ -8,6 +8,7 @@ import com.example.movieapp.data.model.movieDetails.MovieDetailsResponse
 import com.example.movieapp.data.model.movieVideo.MovieVideoResponse
 import com.example.movieapp.data.model.moviesResponse.MoviesResponse
 import com.example.movieapp.data.model.people.PeopleDetails
+import com.example.movieapp.data.model.search.SearchResponse
 import com.example.movieapp.data.model.similarMovies.SimilarMoviesResponse
 import com.example.movieapp.data.model.trending.TrendsResponse
 import com.example.movieapp.data.model.tvShowResponse.TvShowResponse
@@ -107,4 +108,11 @@ interface MovieRemoteService {
             @Path("person_id") person_id:Int,
             @Query("language") language:String = "en-US"
     ):Response<TvCreditsResponse>
+
+    @GET("search/multi")
+    suspend fun searchQuery(
+        @Query("query") query:String,
+        @Query("page") page:Int = 1,
+        @Query("language") language:String = "en-US"
+    ):Response<SearchResponse>
 }

@@ -8,6 +8,7 @@ import com.example.movieapp.data.model.movieDetails.MovieDetailsResponse
 import com.example.movieapp.data.model.movieVideo.MovieVideoResponse
 import com.example.movieapp.data.model.moviesResponse.MoviesResponse
 import com.example.movieapp.data.model.people.PeopleDetails
+import com.example.movieapp.data.model.search.SearchResponse
 import com.example.movieapp.data.model.similarMovies.SimilarMoviesResponse
 import com.example.movieapp.data.model.trending.TrendsResponse
 import com.example.movieapp.data.model.tvShowResponse.TvShowResponse
@@ -33,7 +34,8 @@ class RemoteDataSource
         SimilarMoviesSource,
         PeopleDetailsSource,
         MovieCreditsSource,
-        TvCreditsSource
+        TvCreditsSource,
+        SearchDataSource
 {
 
     override suspend fun getMovieTrendsSource(media_type: String, time_window: String, language: String, page: Int): LoadStatus<TrendsResponse> {
@@ -100,5 +102,13 @@ class RemoteDataSource
 
     override suspend fun getTvCredits(personId: Int, language: String): LoadStatus<TvCreditsResponse> {
         return saveApiCall { apiService.getTvCredits(personId, language) }
+    }
+
+    override suspend fun searchQuery(
+        query: String,
+        page: Int,
+        language: String
+    ): LoadStatus<SearchResponse> {
+        return saveApiCall { apiService.searchQuery(query, page, language) }
     }
 }

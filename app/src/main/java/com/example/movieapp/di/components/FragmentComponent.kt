@@ -7,6 +7,7 @@ import com.example.movieapp.ui.comingSoon.ComingTvShowFragment
 import com.example.movieapp.ui.home.HomeFragment
 import com.example.movieapp.ui.details.movie.MovieDetailsFragment
 import com.example.movieapp.ui.details.person.PersonDetailsFragment
+import com.example.movieapp.ui.search.SearchFragment
 import com.example.movieapp.ui.settings.SettingsFragment
 import com.example.movieapp.ui.trends.TrendsFragment
 import dagger.Subcomponent
@@ -28,6 +29,7 @@ interface FragmentComponent {
     fun inject(fragment:SettingsFragment)
     fun inject(fragment: MovieDetailsFragment)
     fun inject(fragment: PersonDetailsFragment)
+    fun inject(fragment: SearchFragment)
 
     @Subcomponent.Factory
     interface Factory{

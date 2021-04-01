@@ -1,9 +1,11 @@
 package com.example.movieapp.ui
 
+import android.app.Activity
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
+import android.view.View
+import android.view.inputmethod.InputMethodManager
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
@@ -40,5 +42,11 @@ class MainActivity : AppCompatActivity() {
     private fun setupLightDarkMode(){
         val mode = PreferenceManager.getDefaultSharedPreferences(this).getString("theme_light_dark_mode", "default")
         mode?.let { setupDarkLightMode(it) }
+    }
+
+    fun softHideKeyboard(context:Context){
+        val imm = context.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        val view = currentFocus ?: View(this)
+        imm.hideSoftInputFromWindow(view.windowToken, 0)
     }
 }
